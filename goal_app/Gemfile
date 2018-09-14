@@ -46,6 +46,7 @@ group :development, :test do
   gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'launchy'
+  gem 'bcrypt'
 end
 
 group :development do
