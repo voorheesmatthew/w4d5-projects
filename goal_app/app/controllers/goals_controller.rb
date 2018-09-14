@@ -1,6 +1,7 @@
 class GoalsController < ApplicationController
   
   def new
+    
   end
   
   def create
@@ -13,7 +14,13 @@ class GoalsController < ApplicationController
   end
   
   def destroy
-    @goal = Goal.find
+    @goal = Goal.find(params[:id])
+    @goal.destroy
+    redirect_to user_url(current_user)
+  end
+  
+  def goal_params
+    params.require(:goal).permit(:body)
   end
   
 end

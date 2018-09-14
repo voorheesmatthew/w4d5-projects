@@ -41,11 +41,25 @@ feature 'login' do
   end
   
   it "redirects to user show page and displays username" do
+    User.create(username: 'tyler', password: 'password')
+    
     fill_in 'YO NAME', with: 'tyler'
     fill_in 'DO YOU MEMBA?', with: 'password'
-    click_button 'GET IN HERE!'
+    click_button 'IN'
     expect(page).to have_content('tyler')
     user = User.find_by(username: 'tyler')
     expect(current_path).to eq(user_path(user))
+  end
+end
+
+feature 'logout' do
+  let(:user) { User.create(id: 1, username: 'tyler', password: 'password') }
+  background :each do
+    visit user_path(user.id)
+  end
+  
+  it "has a logout button when logged in" do
+    expect(page).to have_content('FUCK')
+    save_and_open_page
   end
 end

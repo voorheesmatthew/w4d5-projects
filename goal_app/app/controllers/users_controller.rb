@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  before_action :require_login, only: [:show]
+  
   def index
     @users = User.all
     render :index
@@ -24,7 +26,13 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    render :show
+    
+    if current_user == @user
+      render :show
+    else
+      flash[:errors] = "That's not you!"
+      redirect_to users_url 
+    end
   end
   
   private

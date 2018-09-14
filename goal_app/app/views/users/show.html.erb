@@ -1,1 +1,24 @@
 <h1>Here's your name: <%= @user.username %></h1>
+
+<form action="<%= goals_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  
+  <label>dream BIG 
+    <!-- <input type="text" name="goal[body]" value="DREAM small"> -->
+    <textarea name="goal[body]"></textarea>
+  </label>
+  
+  <input type="submit" value="SEND IT!">
+  
+</form>
+
+<ul>
+  <% @user.goals.each do |goal|%>
+  <li><%= goal.body %></li><br>
+  <form action=" <%= goal_url(goal) %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="GIVE UP">
+  </form> 
+  <% end %>
+</ul>
