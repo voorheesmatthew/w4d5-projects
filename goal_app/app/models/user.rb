@@ -19,13 +19,17 @@ class User < ApplicationRecord
   
   after_initialize :ensure_token
   
+  has_many :goals,
+    foreign_key: :user_id,
+    class_name: :Goal
+  
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     return nil unless user && user.valid_password?(password)
     user
   end
   
-  def valid_password(password)
+  def valid_password?(password)
     BCrypt::Password.new(password_digest).is_password?(password)
   end
   

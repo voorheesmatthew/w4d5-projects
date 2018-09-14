@@ -11,10 +11,26 @@
 
   <body>
     <h1>Goaling App</h1>
-    <a href="<%=new_user_url%>">Sign Up</a>
-    <h4>or</h4>
-    <a href="<%= new_session_url %>">Log In</a>
+    
+    <% if logged_in? %>
+    
+    <form action=" <%= session_url %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="LOG THE FUCK OUT">
+    </form>
+    
+    <% else %>
+    
+      <a href="<%=new_user_url%>">Sign Up</a>
+        <h4>or</h4>
+      <a href="<%= new_session_url %>">Log In</a>
+      
+    <% end %>
     
     <%= yield %>
+    <% if flash[:errors] %>
+    <%= flash[:errors] %>
+    <% end %>
   </body>
 </html>
