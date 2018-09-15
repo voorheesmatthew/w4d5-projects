@@ -20,5 +20,12 @@
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
     <input type="submit" value="GIVE UP">
   </form> 
+  
+  <form action=" <%= comment_url %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="GIVE UP">
+  </form> 
+  
   <% end %>
 </ul>
